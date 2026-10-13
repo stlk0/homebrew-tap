@@ -1,9 +1,10 @@
-# A copy of packaging/homebrew/rndis-tether.rb from stlk0/rndis-tether; change it there first.
+# Homebrew formula, published in the tap repository stlk0/homebrew-tap as
+# Formula/rndis-tether.rb. At every release: update url and sha256 (see CONTRIBUTING.md).
 class RndisTether < Formula
   desc "Use an Android phone's USB tethering as a normal network connection"
   homepage "https://github.com/stlk0/rndis-tether"
-  url "https://github.com/stlk0/rndis-tether/archive/refs/tags/v1.0.0.tar.gz"
-  sha256 "8ce7e0707edb7c53dbaee9428e3f7f95a7eff9f0ae196fecdda191a63bfea160"
+  url "https://github.com/stlk0/rndis-tether/archive/refs/tags/v1.0.1.tar.gz"
+  sha256 "cc7e82dcab5bd83c43ab7817bd7a298c3cdae6c3377f75a8e6a1afe2a2bd5698"
   license "MIT"
   head "https://github.com/stlk0/rndis-tether.git", branch: "main"
 
