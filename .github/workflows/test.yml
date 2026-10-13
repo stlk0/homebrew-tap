@@ -1,0 +1,35 @@
+name: Test
+
+# Installs every formula the way users do (brew install stlk0/tap/...), from source,
+# then runs its test block and the style and audit checks.
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  rndis-tether:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, macos-15-intel]
+    runs-on: ${{ matrix.os }}
+    env:
+      HOMEBREW_NO_AUTO_UPDATE: 1
+      HOMEBREW_NO_INSTALL_FROM_API: 1
+    steps:
+      - uses: actions/checkout@v5
+      - name: Use this checkout as the tap
+        run: |
+          tap="$(brew --repository)/Library/Taps/stlk0/homebrew-tap"
+          mkdir -p "$(dirname "$tap")"
+          rm -rf "$tap"
+          ln -s "$GITHUB_WORKSPACE" "$tap"
+      - name: Install, test, style, audit
+        run: |
+          brew install --build-from-source stlk0/tap/rndis-tether
+          brew test stlk0/tap/rndis-tether
+          brew style stlk0/tap
+          brew audit --strict --online stlk0/tap/rndis-tether
+          rndis-tether version
+          rndis-tether status || test $? -eq 1
